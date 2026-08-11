@@ -1,0 +1,19 @@
+# Swift Package Manager build state
+.build/
+.swiftpm/
+
+# Xcode (when opening Package.swift directly in Xcode)
+DerivedData/
+xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+
+# PyInstaller output for the embedded backend (root .gitignore already
+# covers build/ and dist/ at any depth, listed here for clarity)
+backend/build/
+backend/dist/
+dist/
+
+# Personal signing/notarization config — never commit a Team ID, signing
+# identity, or notarytool keychain profile name.
+Local.env

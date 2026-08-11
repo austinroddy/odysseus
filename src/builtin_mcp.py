@@ -11,10 +11,9 @@ import logging
 import os
 import shutil
 import subprocess
-import sys
 
 from core.platform_compat import IS_WINDOWS, which_tool
-from src.runtime_paths import get_app_root
+from src.runtime_paths import get_app_root, get_script_subprocess_args
 
 logger = logging.getLogger(__name__)
 
@@ -167,16 +166,16 @@ async def register_builtin_servers(mcp_manager):
         return
 
     base_dir = get_app_root()
-    python = sys.executable
 
     async def _connect_python_server(server_id: str, script_path: str, name: str):
+        command, args = get_script_subprocess_args(script_path)
         try:
             ok = await mcp_manager.connect_server(
                 server_id=server_id,
                 name=name,
                 transport="stdio",
-                command=python,
-                args=[script_path],
+                command=command,
+                args=args,
                 env=builtin_python_env(base_dir),
             )
             if ok:

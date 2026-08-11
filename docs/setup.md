@@ -78,6 +78,11 @@ expose this port directly to the public internet. To build a clickable app wrapp
 ./build-macos-app.sh
 ```
 
+That wrapper drives this repo's own venv from a browser window. For a
+genuine native app — its own Dock icon/menu bar, no dependency on a browser
+being installed, a bundled backend so end users don't need Python at all —
+see [`macos/README.md`](../macos/README.md).
+
 <details>
 <summary>Cookbook, GPU, Ollama, and troubleshooting notes</summary>
 

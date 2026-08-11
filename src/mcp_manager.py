@@ -536,8 +536,8 @@ class McpManager:
 
     async def _reconnect_builtin(self, server_id: str) -> bool:
         """Tear down and reconnect a crashed builtin MCP server."""
-        import sys
         from src.builtin_mcp import _BUILTIN_SERVERS, builtin_python_env
+        from src.runtime_paths import get_script_subprocess_args
 
         if server_id not in _BUILTIN_SERVERS:
             return False
@@ -550,12 +550,13 @@ class McpManager:
         await self.disconnect_server(server_id)
 
         try:
+            command, args = get_script_subprocess_args(script_path)
             ok = await self.connect_server(
                 server_id=server_id,
                 name=name,
                 transport="stdio",
-                command=sys.executable,
-                args=[script_path],
+                command=command,
+                args=args,
                 env=builtin_python_env(base_dir),
             )
             if ok:
